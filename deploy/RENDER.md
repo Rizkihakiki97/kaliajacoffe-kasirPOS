@@ -1,5 +1,7 @@
 # Frontend Vercel + Backend Render (gratis) — Opsi 1
 
+> Untuk panduan dengan nilai konkret proyek ini (URL Vercel, repo GitHub, env Render, smoke test, troubleshooting), lihat `deploy/PANDUAN-OPSI-1.md`.
+
 Arsitektur yang disiapkan:
 
 ```
