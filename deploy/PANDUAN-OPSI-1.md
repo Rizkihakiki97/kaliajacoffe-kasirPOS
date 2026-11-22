@@ -1,4 +1,4 @@
-# Panduan Deploy Opsi 1 — Kaliaja.coffe (Gratis dulu)
+# Panduan Deploy Opsi 1 — Kaliaja.coffe
 
 Dokumen ini adalah **panduan operasional Opsi 1** dengan nilai-nilai konkret untuk proyek ini. Untuk penjelasan umum, lihat `deploy/RENDER.md`. Untuk Opsi 2 (VPS), lihat `deploy/README.md`.
 
