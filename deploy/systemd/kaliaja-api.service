@@ -1,0 +1,25 @@
+[Unit]
+Description=Kaliaja.coffe REST API (Golang)
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/kaliaja.coffe/backend
+EnvironmentFile=/var/www/kaliaja.coffe/backend/.env
+ExecStart=/var/www/kaliaja.coffe/backend/bin/server
+Restart=always
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/var/www/kaliaja.coffe/backend/uploads
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

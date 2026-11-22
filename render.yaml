@@ -1,0 +1,77 @@
+# Render Blueprint — backend API Kaliaja.coffe (frontend tetap di Vercel).
+# Cara: Render Dashboard > New > Blueprint > pilih repo ini.
+# Sebelum itu, siapkan database MySQL-compatible (mis. TiDB Cloud Serverless)
+# dan akun Cloudinary, lalu isi env var bertanda "sync: false" di dashboard.
+services:
+  - type: web
+    name: kaliaja-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: Dockerfile
+    plan: free
+    region: singapore
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_PORT
+        value: "8080"
+      - key: APP_URL
+        value: https://kaliaja.coffe.vercel.app
+      - key: ALLOWED_ORIGIN
+        value: https://kaliaja.coffe.vercel.app
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: MAX_UPLOAD_MB
+        value: "4"
+      - key: STORAGE_DRIVER
+        value: cloudinary
+      # Render menaruh proxy di depan container dan menimpa X-Forwarded-For.
+      # Tanpa ini semua user terlihat berasal dari satu IP dan kena rate limit bersama.
+      - key: TRUSTED_PROXIES
+        value: 0.0.0.0/0,::/0
+
+      # === Isi di dashboard Render (sync: false) ===
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "4000"
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: DB_NAME
+        value: kaliaja_coffe
+      - key: DB_TLS
+        value: "true"
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: kaliaja
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        value: no-reply@kaliaja.coffe
+
+      # Dipakai sekali saat menjalankan seed lewat Render Shell:
+      # ./server -seed
+      - key: SEED_ADMIN_EMAIL
+        value: admin@kaliaja.coffe
+      - key: SEED_ADMIN_PASSWORD
+        sync: false
+      - key: SEED_BOS_EMAIL
+        value: bos@kaliaja.coffe
+      - key: SEED_BOS_PASSWORD
+        sync: false

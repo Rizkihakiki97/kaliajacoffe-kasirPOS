@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.production.example
+uploads/
+bin/
+*.log
+.git/
+.gitignore
